@@ -24,7 +24,6 @@ namespace DeckSearch
 		public DeckSearch ()
 		{
 			this.searchFieldStyle = ((GUISkin)ResourceManager.Load ("_GUISkins/TextEntrySkin")).textField;
-			Console.WriteLine("WHAT THE FUCK");
 		}
 
 
@@ -42,7 +41,6 @@ namespace DeckSearch
 		//safety first! surround with try/catch and return an empty array in case it fails
 		public static MethodDefinition[] GetHooks (TypeDefinitionCollection scrollsTypes, int version)
 		{
-			Console.WriteLine("FUCK THIS");
 			MethodDefinition[] definitions;
 			definitions = scrollsTypes["Popups"].Methods.GetMethod ("ShowDeckSelector");
 			MethodDefinition show = definitions[0];
@@ -61,13 +59,11 @@ namespace DeckSearch
 		{
 			this.popups = (Popups)info.target;
 			if (info.targetMethod == "ShowDeckSelector") {
-				Console.WriteLine("FUCK ALL OF THIS");
 				this.fullDeckList = (List<DeckInfo>)typeof(Popups).GetField ("deckList", BindingFlags.Instance | BindingFlags.NonPublic).GetValue(this.popups);
 				return;
 			}
 			if (info.targetMethod == "DrawDeckSelector") {
 				this.rect = (Rect)info.arguments[0];
-				Console.WriteLine("FUCK THE WORLD");
 				float headerHeight = (float)Screen.height * 0.055f;
 				Rect textRect = new Rect (rect.x, rect.y, rect.width * 0.3f, headerHeight);
 
